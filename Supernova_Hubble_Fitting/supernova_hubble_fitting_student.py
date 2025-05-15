@@ -40,7 +40,7 @@ def hubble_model(z, H0):
     #[STUDENT_CODE_HERE]
     #raise NotImplementedError("请在 {} 中实现此函数。".format(__file__))
     #return mu
-    c = 299792.458 
+    c = 299792.458  
     return 5 * np.log10(c * z / H0) + 25
 
 def hubble_model_with_deceleration(z, H0, a1):
