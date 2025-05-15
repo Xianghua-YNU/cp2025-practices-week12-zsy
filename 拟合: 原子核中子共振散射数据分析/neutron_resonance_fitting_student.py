@@ -39,7 +39,9 @@ def fit_without_errors(energy, cross_section):
     
     # TODO: 使用curve_fit进行拟合 (约1行代码)
     # [STUDENT_CODE_HERE]
-    popt, pcov = curve_fit(breit_wigner, energy, cross_section, p0=[Er_guess, Gamma_guess, fr_guess])
+    bounds = ([50, 30, 0], [100, 100, np.inf])
+    
+    popt, pcov = curve_fit(breit_wigner, energy, cross_section, p0=[Er_guess, Gamma_guess, fr_guess], bounds=bounds)
 
     return popt, pcov
 
@@ -64,7 +66,9 @@ def fit_with_errors(energy, cross_section, errors):
     
     # TODO: 使用curve_fit进行拟合，考虑误差 (约1行代码)
     # [STUDENT_CODE_HERE]
-    popt, pcov = curve_fit(breit_wigner, energy, cross_section, p0=[Er_guess, Gamma_guess, fr_guess], sigma=errors, absolute_sigma=True)
+    bounds = ([50, 30, 0], [100, 100, np.inf])
+    
+    popt, pcov = curve_fit(breit_wigner, energy, cross_section, p0=[Er_guess, Gamma_guess, fr_guess], sigma=errors, absolute_sigma=True, bounds=bounds)
 
     return popt, pcov
 
