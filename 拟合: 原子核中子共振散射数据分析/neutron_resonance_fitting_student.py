@@ -98,9 +98,9 @@ def plot_fit_results(energy, cross_section, errors, popt, pcov, title):
     fr_std = np.sqrt(pcov[2, 2])
     
     plt.text(0.05, 0.95, 
-             f'$E_r$ = {Er:.1f} ± {1.96*Er_std:.1f} MeV (95% CI)\n'
-             f'$\Gamma$ = {Gamma:.1f} ± {1.96*Gamma_std:.1f} MeV (95% CI)\n'
-             f'$f_r$ = {fr:.0f} ± {1.96*fr_std:.0f} (95% CI)',
+             r'$E_r$ = {0:.1f} ± {1:.1f} MeV (95% CI)\n'
+             r'$\Gamma$ = {2:.1f} ± {3:.1f} MeV (95% CI)\n'
+             r'$f_r$ = {4:.1f} ± {5:.1f} (95% CI)'.format(Er, Er_std, Gamma, Gamma_std, fr, fr_std),
              transform=plt.gca().transAxes, 
              verticalalignment='top',
              bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
