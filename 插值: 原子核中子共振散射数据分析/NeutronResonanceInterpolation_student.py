@@ -26,7 +26,14 @@ def lagrange_interpolation(x, x_data, y_data):
     """
     # TODO: 在此实现拉格朗日插值算法 (大约10-15行代码)
     # [STUDENT_CODE_HERE]
-    raise NotImplementedError("请在 {} 中实现此函数".format(__file__))
+    result = np.zeros_like(x)
+    n = len(x_data)
+    for i in range(n):
+        p = np.ones_like(x)
+        for j in range(n):
+            if i != j:
+                p *= (x - x_data[j]) / (x_data[i] - x_data[j])
+        result += y_data[i] * p
     return result
 
 def cubic_spline_interpolation(x, x_data, y_data):
@@ -48,8 +55,8 @@ def cubic_spline_interpolation(x, x_data, y_data):
     """
     # TODO: 在此实现三次样条插值 (大约2-3行代码)
     # [STUDENT_CODE_HERE]
-    raise NotImplementedError("请在 {} 中实现此函数".format(__file__))
-    return result
+    cs = interp1d(x_data, y_data, kind='cubic', bounds_error=False, fill_value="extrapolate")
+    return cs(x)
 
 def find_peak(x, y):
     """
@@ -69,7 +76,19 @@ def find_peak(x, y):
     """
     # TODO: 在此实现共振峰分析 (大约5-8行代码)
     # [STUDENT_CODE_HERE]
-    raise NotImplementedError("请在 {} 中实现此函数".format(__file__))
+    peak_index = np.argmax(y)
+    peak_x = x[peak_index]
+    peak_y = y[peak_index]
+    half_max = peak_y / 2.0
+
+    indices = np.where(y >= half_max)[0]
+    left_index = indices[0]
+    right_index = indices[-1]
+
+    left_x = x[left_index]
+    right_x = x[right_index]
+    fwhm = right_x - left_x
+    
     return peak_x, fwhm
 
 def plot_results():
@@ -113,6 +132,7 @@ def plot_results():
     plt.legend()
     plt.grid(True)
     
+    plt.savefig('neutron_resonance.png')
     plt.show()
 
 if __name__ == "__main__":
