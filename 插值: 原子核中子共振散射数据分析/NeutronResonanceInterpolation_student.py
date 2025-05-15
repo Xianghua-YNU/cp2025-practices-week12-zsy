@@ -26,6 +26,10 @@ def lagrange_interpolation(x, x_data, y_data):
     """
     # TODO: 在此实现拉格朗日插值算法 (大约10-15行代码)
     # [STUDENT_CODE_HERE]
+    x = np.asarray(x, dtype=np.float64)
+    x_data = np.asarray(x_data, dtype=np.float64)
+    y_data = np.asarray(y_data, dtype=np.float64)
+    
     result = np.zeros_like(x)
     n = len(x_data)
     for i in range(n):
@@ -81,9 +85,14 @@ def find_peak(x, y):
     peak_y = y[peak_index]
     half_max = peak_y / 2.0
 
-    indices = np.where(y >= half_max)[0]
-    left_index = indices[0]
-    right_index = indices[-1]
+    left_indices = np.where(y[:peak_index] >= half_max)[0]
+    right_indices = np.where(y[peak_index:] >= half_max)[0]
+
+    if len(left_indices) == 0 or len(right_indices) == 0:
+        return peak_x, 0.0
+    
+    left_index = left_indices[0]
+    right_index = peak_index + right_indices[-1]
 
     left_x = x[left_index]
     right_x = x[right_index]
