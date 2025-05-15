@@ -14,8 +14,10 @@ def load_bacterial_data(file_path):
     """
     # TODO: 实现数据加载功能 (大约3行代码)
     # [STUDENT_CODE_HERE]
-    raise NotImplementedError("请在 {} 中实现此函数".format(__file__))
-    return t, activity
+    data = np.loadtxt(file_path)
+    t = data[:, 0]
+    enzyme_activity = data[:, 1]
+    return t, enzyme_activity
 
 def V_model(t, tau):
     """
@@ -30,7 +32,7 @@ def V_model(t, tau):
     """
     # TODO: 根据V(t) = 1 - e^(-t/τ)实现模型函数 (1行代码)
     # [STUDENT_CODE_HERE]
-    raise NotImplementedError("请在 {} 中实现此函数".format(__file__))
+    result = 1 - np.exp(-t / tau)
     return result
 
 def W_model(t, A, tau):
@@ -47,7 +49,7 @@ def W_model(t, A, tau):
     """
     # TODO: 根据W(t) = A(e^(-t/τ) - 1 + t/τ)实现模型函数 (1行代码)
     # [STUDENT_CODE_HERE]
-    raise NotImplementedError("请在 {} 中实现此函数".format(__file__))
+    result = A * (np.exp(-t / tau) - 1 + t / tau)
     return result
 
 def fit_model(t, data, model_func, p0):
@@ -65,7 +67,7 @@ def fit_model(t, data, model_func, p0):
     """
     # TODO: 使用scipy.optimize.curve_fit进行拟合 (1行代码)
     # [STUDENT_CODE_HERE]
-    raise NotImplementedError("请在 {} 中实现此函数".format(__file__))
+    popt, pcov = curve_fit(model_func, t, data, p0=p0)
     return popt, pcov
 
 def plot_results(t, data, model_func, popt, title):
@@ -81,7 +83,17 @@ def plot_results(t, data, model_func, popt, title):
     """
     # TODO: 实现绘图功能 (约10行代码)
     # [STUDENT_CODE_HERE]
-    raise NotImplementedError("请在 {} 中实现此函数".format(__file__))
+    plt.figure(figsize=(10, 6))
+    plt.plot(t, data, 'bo', label='实验数据')
+    plt.plot(t, model_func(t, *popt), 'r-', label='拟合曲线')
+    plt.title(title)
+    plt.xlabel('time')
+    plt.ylabel('Enzyme activity')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+    
+    plt.savefig('Enzyme activity.png')
 
 if __name__ == "__main__":
     # 加载数据
