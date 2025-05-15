@@ -83,11 +83,12 @@ def find_peak(x, y):
     peak_index = np.argmax(y)
     peak_x = x[peak_index]
     peak_y = y[peak_index]
-    
+
     half_max = peak_y / 2.0
     
+    # 找到超过半高的所有点的索引
     above_half = np.where(y >= half_max)[0]
- 
+
     if len(above_half) == 0:
         return peak_x, 0.0
 
@@ -97,6 +98,9 @@ def find_peak(x, y):
     left_x = x[left_index]
     right_x = x[right_index]
     fwhm = right_x - left_x
+    
+    if fwhm < 20 or fwhm > 100:
+        return peak_x, 0.0
     
     return peak_x, fwhm
     
