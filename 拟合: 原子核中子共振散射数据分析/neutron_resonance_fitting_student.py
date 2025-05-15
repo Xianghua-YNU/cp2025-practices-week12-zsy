@@ -141,7 +141,7 @@ def main():
           f"Γ={popt2[1]:.1f}±{1.96*np.sqrt(pcov2[1,1]):.1f} MeV (95% CI), "
           f"fr={popt2[2]:.0f}±{1.96*np.sqrt(pcov2[2,2]):.0f} (95% CI)")
    plt.show()
-
+    
     fig1.savefig('breit_wigner_fit_without_errors.png')
     fig2.savefig('breit_wigner_fit_with_errors.png')
 
