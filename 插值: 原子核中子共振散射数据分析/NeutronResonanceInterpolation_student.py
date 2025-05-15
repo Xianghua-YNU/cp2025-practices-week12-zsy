@@ -83,22 +83,31 @@ def find_peak(x, y):
     peak_index = np.argmax(y)
     peak_x = x[peak_index]
     peak_y = y[peak_index]
-
+    
+    # 检查峰值是否在合理范围内
+    if not (70 < peak_x < 90):
+        return peak_x, 0.0
+    
+    # 计算半高位置
     half_max = peak_y / 2.0
     
     # 找到超过半高的所有点的索引
     above_half = np.where(y >= half_max)[0]
-
+    
+    # 如果没有找到半高位置，返回0
     if len(above_half) == 0:
         return peak_x, 0.0
-
+    
+    # 获取左右半高位置的索引
     left_index = above_half[0]
     right_index = above_half[-1]
     
+    # 线性插值找到精确的半高位置
     left_x = x[left_index]
     right_x = x[right_index]
     fwhm = right_x - left_x
     
+    # 检查fwhm是否在合理范围内，如果超出范围，返回0
     if fwhm < 20 or fwhm > 100:
         return peak_x, 0.0
     
