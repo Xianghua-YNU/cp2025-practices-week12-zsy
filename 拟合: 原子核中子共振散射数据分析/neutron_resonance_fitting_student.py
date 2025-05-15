@@ -17,7 +17,7 @@ def breit_wigner(E, Er, Gamma, fr):
     """
     # TODO: 在此实现Breit-Wigner公式 (约1行代码)
     # [STUDENT_CODE_HERE]
-     return (4 * fr) / (Gamma**2 + 4*(E - Er)**2)
+    return (4 * fr) / (Gamma**2 + 4*(E - Er)**2)
     
 def fit_without_errors(energy, cross_section):
     """
