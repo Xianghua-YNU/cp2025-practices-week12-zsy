@@ -83,13 +83,29 @@ def find_peak(x, y):
     peak_index = np.argmax(y)
     peak_x = x[peak_index]
     peak_y = y[peak_index]
-    
     half_max = peak_y / 2
-    left_x = np.argmin(np.abs(y[peak_index] - half_max))
-    right_x = peak_index + np.argmin(np.abs(y[peak_index] - half_max))
+
+    # 在左侧找到最接近半高位置的索引
+    left_side = y[:peak_index]
+    if len(left_side) > 0:
+        left_index = np.argmin(np.abs(left_side - half_max))
+        left_x = x[left_index]
+    else:
+        left_x = peak_x  # 如果左侧没有数据，半高位置设为峰值位置
+
+    # 在右侧找到最接近半高位置的索引
+    right_side = y[peak_index:]
+    if len(right_side) > 0:
+        right_index = np.argmin(np.abs(right_side - half_max)) + peak_index
+        right_x = x[right_index]
+    else:
+        right_x = peak_x  # 如果右侧没有数据，半高位置设为峰值位置
+
     fwhm = right_x - left_x
 
-    
+    print(f"Peak located at Energy: {peak_x} MeV")
+    print(f"FWHM: {fwhm} MeV")
+
     return peak_x, fwhm
     
 def plot_results():
