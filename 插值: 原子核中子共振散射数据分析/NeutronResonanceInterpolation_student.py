@@ -80,19 +80,14 @@ def find_peak(x, y):
     """
     # TODO: 在此实现共振峰分析 (大约5-8行代码)
     # [STUDENT_CODE_HERE]
-    peaks, _ = find_peaks(y)
-    
-    if len(peaks) == 0:
-        return 0.0, 0.0
-    
-    peak_index = peaks[np.argmax(y[peaks])]
+    peak_index = np.argmax(y)
     peak_x = x[peak_index]
     peak_y = y[peak_index]
     
     half_max = peak_y / 2.0
     
     above_half = np.where(y >= half_max)[0]
-    
+ 
     if len(above_half) == 0:
         return peak_x, 0.0
 
