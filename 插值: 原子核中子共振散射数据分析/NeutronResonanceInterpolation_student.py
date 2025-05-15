@@ -85,21 +85,19 @@ def find_peak(x, y):
     peak_y = y[peak_index]
     half_max = peak_y / 2
 
-    # 在左侧找到最接近半高位置的索引
     left_side = y[:peak_index]
     if len(left_side) > 0:
         left_index = np.argmin(np.abs(left_side - half_max))
         left_x = x[left_index]
     else:
-        left_x = peak_x  # 如果左侧没有数据，半高位置设为峰值位置
+        left_x = peak_x 
 
-    # 在右侧找到最接近半高位置的索引
     right_side = y[peak_index:]
     if len(right_side) > 0:
         right_index = np.argmin(np.abs(right_side - half_max)) + peak_index
         right_x = x[right_index]
     else:
-        right_x = peak_x  # 如果右侧没有数据，半高位置设为峰值位置
+        right_x = peak_x  
 
     fwhm = right_x - left_x
 
