@@ -17,7 +17,7 @@ def breit_wigner(E, Er, Gamma, fr):
     """
     # TODO: 在此实现Breit-Wigner公式 (约1行代码)
     # [STUDENT_CODE_HERE]
-    raise NotImplementedError("请在 {} 中实现此函数".format(__file__))
+    return fr * Gamma / ((E - Er)**2 + (Gamma/2)**2)
 
 def fit_without_errors(energy, cross_section):
     """
@@ -39,7 +39,8 @@ def fit_without_errors(energy, cross_section):
     
     # TODO: 使用curve_fit进行拟合 (约1行代码)
     # [STUDENT_CODE_HERE]
-    raise NotImplementedError("请在 {} 中实现此函数".format(__file__))
+    popt, pcov = curve_fit(breit_wigner, energy, cross_section, p0=[Er_guess, Gamma_guess, fr_guess])
+    return popt, pcov
 
 def fit_with_errors(energy, cross_section, errors):
     """
@@ -62,7 +63,8 @@ def fit_with_errors(energy, cross_section, errors):
     
     # TODO: 使用curve_fit进行拟合，考虑误差 (约1行代码)
     # [STUDENT_CODE_HERE]
-    raise NotImplementedError("请在 {} 中实现此函数".format(__file__))
+    popt, pcov = curve_fit(breit_wigner, energy, cross_section, p0=[Er_guess, Gamma_guess, fr_guess], sigma=errors, absolute_sigma=True)
+    return popt, pcov
 
 def plot_fit_results(energy, cross_section, errors, popt, pcov, title):
     """
@@ -138,6 +140,10 @@ def main():
     print(f"考虑误差:   Er={popt2[0]:.1f}±{1.96*np.sqrt(pcov2[0,0]):.1f} MeV (95% CI), "
           f"Γ={popt2[1]:.1f}±{1.96*np.sqrt(pcov2[1,1]):.1f} MeV (95% CI), "
           f"fr={popt2[2]:.0f}±{1.96*np.sqrt(pcov2[2,2]):.0f} (95% CI)")
+    plt.show()
+    
+fig1.savefig('breit_wigner_fit_without_errors.png')
+fig2.savefig('breit_wigner_fit_with_errors.png')
 
 if __name__ == "__main__":
     main()
