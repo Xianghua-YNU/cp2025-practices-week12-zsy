@@ -83,23 +83,23 @@ def find_peak(x, y):
     peak_index = np.argmax(y)
     peak_x = x[peak_index]
     peak_y = y[peak_index]
+
     half_max = peak_y / 2.0
 
-    left_indices = np.where(y[:peak_index] >= half_max)[0]
-    right_indices = np.where(y[peak_index:] >= half_max)[0]
+    above_half = np.where(y >= half_max)[0]
 
-    if len(left_indices) == 0 or len(right_indices) == 0:
+    if len(above_half) == 0:
         return peak_x, 0.0
     
-    left_index = left_indices[0]
-    right_index = peak_index + right_indices[-1]
-
+    left_index = above_half[0]
+    right_index = above_half[-1]
+    
     left_x = x[left_index]
     right_x = x[right_index]
     fwhm = right_x - left_x
     
     return peak_x, fwhm
-
+    
 def plot_results():
     """
     绘制插值结果和原始数据对比图
