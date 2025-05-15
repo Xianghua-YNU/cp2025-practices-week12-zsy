@@ -79,7 +79,7 @@ def plot_fit_results(energy, cross_section, errors, popt, pcov, title):
     参数:
         energy (numpy.ndarray): 能量数据
         cross_section (numpy.ndarray): 截面数据
-        errors (numpy.ndarray): 误差数据
+        errors (numpy.ndarray): 误差数据 
         popt (array): 拟合参数
         pcov (2D array): 协方差矩阵
         title (str): 图表标题
